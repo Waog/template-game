@@ -1,21 +1,27 @@
-game.module(
-    'game.main'
-)
-.body(function() {
+game.module('game.main').body(
+    function() {
 
-game.addAsset('logo.png');
+	    game.addAsset('logo.png');
 
-SceneGame = game.Scene.extend({
-    backgroundColor: 0xb9bec7,
+	    LogoClass = game.Class.extend({
+		    init : function(x, y) {
+			    this.sprite = new game.Sprite('logo.png');
+			    this.sprite.anchor.set(0.5, 0.5);
+			    this.sprite.position.set(x, y);
 
-    init: function() {
-        var logo = new game.Sprite('logo.png');
-        logo.anchor.set(0.5, 0.5);
-        logo.position.set(game.system.width / 2, game.system.height / 2);
-        this.stage.addChild(logo);
-    }
-});
+			    game.scene.stage.addChild(this.sprite);
+		    }
+	    })
 
-game.start();
+	    SceneGame = game.Scene.extend({
+	      backgroundColor : 0xb9bec7,
 
-});
+	      init : function() {
+		      var logoObj = new LogoClass(game.system.width / 2,
+		          game.system.height / 2);
+	      }
+	    });
+
+	    game.start();
+
+    });
