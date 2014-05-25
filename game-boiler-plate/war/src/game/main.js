@@ -17,6 +17,22 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 			      var rndY = Math.random() * game.system.height;
 			      var blueDotObj = new BlueDotClass(rndX, rndY);
 		      }, true);
+
+		      // switch to the end scene after 5 seconds
+		      this.addTimer(5000, function() {
+			      game.system.setScene(SceneEnd);
+		      });
+	      }
+	    });
+
+	    SceneEnd = game.Scene.extend({
+	      backgroundColor : 0xFF0000,
+
+	      init : function() {
+		      // switch to the game scene after 5 seconds
+		      this.addTimer(5000, function() {
+			      game.system.setScene(SceneGame);
+		      });
 	      }
 	    });
 
