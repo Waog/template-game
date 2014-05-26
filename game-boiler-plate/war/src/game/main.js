@@ -11,8 +11,8 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 			          game.system.height / 2);
 		      });
 
-		      // add one randomly positioned blue dot every 1 seconds
-		      this.addTimer(1000, function() {
+		      // add one randomly positioned blue dot every new milliseconds
+		      this.addTimer(100, function() {
 			      var rndX = Math.random() * game.system.width;
 			      var rndY = Math.random() * game.system.height;
 			      var blueDotObj = new BlueDotClass(rndX, rndY);
@@ -29,8 +29,8 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 	      backgroundColor : 0xFF0000,
 
 	      init : function() {
-		      // switch to the game scene after 5 seconds
-		      this.addTimer(5000, function() {
+		      // switch to the game scene after some time
+		      this.addTimer(2000, function() {
 			      game.system.setScene(SceneGame);
 		      });
 	      }
