@@ -9,22 +9,23 @@ game.module('game.moduleRed').body(function() {
 			this.sprite.position.set(x, y);
 			this.sprite.scale.set(3, 3);
 
-			var tween = new game.Tween(this.sprite.scale);
-			tween.to({
-			  x : [ 1, 2, 1 ],
-			  y : [ 1, 2, 1 ]
-			}, 700);
-			tween.start();
-			// additionally look at easing and interpolation, to get more fancy
-			// effects
-			
+			// interactivity:
 			this.sprite.interactive = true;
-			this.sprite.buttonMode = true; //activate for changing cursor
+			this.sprite.buttonMode = true; // activate for changing cursor
 			var spriteLocal = this.sprite;
 			this.sprite.click = function() {
-				spriteLocal.scale.x += 1;
-				spriteLocal.scale.y += 1;
-				spriteLocal.rotation += 0.2;
+				// tweening
+				var tween = new game.Tween(spriteLocal);
+				var rndX = Math.random() * game.system.width;
+				var rndY = Math.random() * game.system.height;
+				tween.to({
+				  rotation : Math.random(),
+				  alpha : [ 0.1, 1, 0.1, 1 ],
+				  x : rndX,
+				  y : rndY,
+				}, 700);
+				tween.start();
+				// add easing and interpolation, to get more fancy effects
 			};
 
 			game.scene.stage.addChild(this.sprite);
