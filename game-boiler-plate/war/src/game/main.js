@@ -18,17 +18,19 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 			      var blueDotObj = new BlueDotClass(rndX, rndY);
 		      }, true);
 	      },
-	      
+
 	      mousemove : function(e) {
-	      	var x = e.global.x;
-	      	var y = e.global.y;
-	      	new BlueDotClass(x, y);
+		      var x = e.global.x;
+		      var y = e.global.y;
+		      new BlueDotClass(x, y);
 	      },
-	      
+
 	      mouseout : function() {
 		      game.system.setScene(SceneEnd);
 	      }
 	    });
+
+	    // game.addAsset('myBitmapFont.fnt');
 
 	    SceneEnd = game.Scene.extend({
 	      backgroundColor : 0xFF0000,
@@ -38,8 +40,12 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 		      this.addTimer(2000, function() {
 			      game.system.setScene(SceneGame);
 		      });
+
+		      // var text = new game.BitmapText('Hello BitmapFont!', {
+		      // font : 'myBitmapFont'
+		      // });
 	      },
-	      
+
 	      mousemove : function() {
 		      game.system.setScene(SceneGame);
 	      }
