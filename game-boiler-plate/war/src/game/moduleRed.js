@@ -17,6 +17,15 @@ game.module('game.moduleRed').body(function() {
 			tween.start();
 			// additionally look at easing and interpolation, to get more fancy
 			// effects
+			
+			this.sprite.interactive = true;
+			this.sprite.buttonMode = true; //activate for changing cursor
+			var spriteLocal = this.sprite;
+			this.sprite.click = function() {
+				spriteLocal.scale.x += 1;
+				spriteLocal.scale.y += 1;
+				spriteLocal.rotation += 0.2;
+			};
 
 			game.scene.stage.addChild(this.sprite);
 		}
