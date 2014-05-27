@@ -22,6 +22,18 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 		      this.addTimer(7000, function() {
 			      game.system.setScene(SceneEnd);
 		      });
+	      },
+	      
+	      click : function(event) {
+	      	var x = event.global.x;
+	      	var y = event.global.y;
+	      	new RedDotClass(x, y);
+	      },
+	      
+	      mousemove : function(e) {
+	      	var x = e.global.x;
+	      	var y = e.global.y;
+	      	new BlueDotClass(x, y);
 	      }
 	    });
 
