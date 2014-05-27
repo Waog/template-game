@@ -40,11 +40,11 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 		      });
 	      },
 	      
-	      mousein : function() {
+	      mousemove : function() {
 		      game.system.setScene(SceneGame);
 	      }
 	    });
 
-	    game.start();
+	    game.start(SceneGame, 1920, 1080);
 
     });

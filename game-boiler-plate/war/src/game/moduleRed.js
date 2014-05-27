@@ -19,7 +19,7 @@ game.module('game.moduleRed').body(function() {
 				var rndX = Math.random() * game.system.width;
 				var rndY = Math.random() * game.system.height;
 				tween.to({
-				  rotation : Math.random(),
+				  rotation : Math.PI * Math.random(),
 				  alpha : [ 0.1, 1, 0.1, 1 ],
 				  x : rndX,
 				  y : rndY,
