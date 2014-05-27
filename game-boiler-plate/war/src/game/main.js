@@ -18,8 +18,8 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 			      var blueDotObj = new BlueDotClass(rndX, rndY);
 		      }, true);
 
-		      // switch to the end scene after 5 seconds
-		      this.addTimer(5000, function() {
+		      // switch to the end scene after some seconds
+		      this.addTimer(7000, function() {
 			      game.system.setScene(SceneEnd);
 		      });
 	      }
