@@ -30,7 +30,7 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 	      }
 	    });
 
-	    // game.addAsset('myBitmapFont.fnt');
+//	    game.addAsset('myBitmapFont.fnt');
 
 	    SceneEnd = game.Scene.extend({
 	      backgroundColor : 0xFF0000,
@@ -41,9 +41,10 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 			      game.system.setScene(SceneGame);
 		      });
 
-		      // var text = new game.BitmapText('Hello BitmapFont!', {
-		      // font : 'myBitmapFont'
-		      // });
+//		      var text = new game.BitmapText('Hello BitmapFont!', {
+//			      font : 'myBitmapFont'
+//		      });
+//		      this.stage.addChild(text);
 	      },
 
 	      mousemove : function() {
