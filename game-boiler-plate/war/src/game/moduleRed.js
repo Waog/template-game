@@ -1,4 +1,4 @@
-game.module('game.moduleRed').body(function() {
+game.module('game.moduleRed').require('engine.particle').body(function() {
 
 	game.addAsset('redDot.png');
 
@@ -27,8 +27,21 @@ game.module('game.moduleRed').body(function() {
 				tween.start();
 				// add easing and interpolation, to get more fancy effects
 			};
-
+			
 			game.scene.stage.addChild(this.sprite);
+			
+			// particles
+			var emitter = new game.Emitter();
+			emitter.container = this.sprite;
+			emitter.textures.push('redDot.png');
+			emitter.position.set(0, 0);
+			emitter.startScale = 0.3;
+      emitter.endScale = 0.0;
+      emitter.life = 0.5; // particle exists for that many seconds
+      emitter.lifeVar = 0.5;
+      emitter.rate = 0.1; // Emit particles every second
+      emitter.count = 3; // Emit 2 particles
+			game.scene.addEmitter(emitter);
 		}
 	});
 
