@@ -43,7 +43,7 @@ game.module('game.main').require('engine.core', 'game.moduleRed',
 
 		      var text = new game.BitmapText('Hello BitmapFont!', {
 			      font : 'Arial'
-		      });
+		      }); // the font has to be the "face" from the .fnt file.
 		      this.stage.addChild(text);
 	      },
 
