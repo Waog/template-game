@@ -1,10 +1,14 @@
 game.module('game.main').require('engine.core', 'game.moduleRed',
-    'game.moduleBlue').body(
+    'game.moduleBlue', 'engine.audio').body(
     function() {
+	    game.addAudio('audio/lalala.m4a', 'music');
+
 	    SceneGame = game.Scene.extend({
 	      backgroundColor : 0xb9bec7,
 
 	      init : function() {
+		      game.audio.playMusic('music');
+
 		      // add one central red dot after 3 seconds
 		      this.addTimer(1500, function() {
 			      var redDotObj = new RedDotClass(game.system.width / 2,

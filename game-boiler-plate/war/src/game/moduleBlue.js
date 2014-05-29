@@ -23,7 +23,7 @@ game.module('game.moduleBlue').require('utils.Util').body(
 	      },
 
 	      getRandomSprite : function() {
-	      	// from sprite sheet
+		      // from sprite sheet
 		      var fileName = new Util().getRandomArrayElement([ 'blueCross.png',
 		          'blueSquare.png', 'blueStar.png' ]);
 
