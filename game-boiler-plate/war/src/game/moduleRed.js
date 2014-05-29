@@ -15,7 +15,7 @@ game.module('game.moduleRed').require('engine.particle', 'engine.audio').body(
 			    this.sprite.interactive = true;
 			    this.sprite.buttonMode = true; // activate for changing cursor
 			    var spriteLocal = this.sprite;
-			    this.sprite.click = function() {
+			    var touchedAction = function() {
 				    // tweening
 				    var tween = new game.Tween(spriteLocal);
 				    var rndX = Math.random() * game.system.width;
@@ -34,6 +34,9 @@ game.module('game.moduleRed').require('engine.particle', 'engine.audio').body(
 				        }, Math.random() + 0.3);
 			    };
 
+			    this.sprite.click = touchedAction;
+			    this.sprite.tap = touchedAction;
+			    
 			    game.scene.stage.addChild(this.sprite);
 
 			    // particles
