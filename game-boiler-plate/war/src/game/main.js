@@ -2,7 +2,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
         'game.moduleBoat', 'game.moduleStone', 'game.moduleBlue',
         'engine.audio', 'engine.keyboard').body(
         function() {
-            game.addAudio('audio/lalala.m4a', 'music');
+            game.addAudio('audio/Ocean_2.wav', 'music');
 
             SceneGame = game.Scene.extend({
                 backgroundColor : 0xb9bec7,

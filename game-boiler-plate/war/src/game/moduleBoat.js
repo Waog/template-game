@@ -10,7 +10,7 @@ game
                     game.addAsset('player1.png');
                     game.addAsset('player2.png');
                     game.addAsset('box.png');
-                    game.addAudio('audio/hurt.m4a', 'clickSound');
+                    game.addAudio('audio/splash.m4a', 'clickSound');
 
                     Boat = game.Class
                             .extend({
@@ -169,6 +169,11 @@ game
                                             rotation : [ -0.5, 0 ]
                                         }, 100);
                                         tween.start();
+
+                                        game.audio.playSound('clickSound',
+                                                false, 1 + Math.random() + 0.3,
+                                                function() {
+                                                }, Math.random() + 0.3);
                                     }
                                     // else if button is hold down: slow down
                                     if (leftDown
@@ -210,6 +215,10 @@ game
                                         }, 100);
                                         tween.start();
 
+                                        game.audio.playSound('clickSound',
+                                                false, 1 + Math.random() + 0.3,
+                                                function() {
+                                                }, Math.random() + 0.3);
                                     }
                                     // else if button is hold down: slow down
                                     if (rightDown
