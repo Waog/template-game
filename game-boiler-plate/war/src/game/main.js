@@ -1,61 +1,21 @@
-game.module('game.main').require('engine.core', 'game.moduleRed',
-    'game.moduleBlue', 'engine.audio').body(
-    function() {
-	    game.addAudio('audio/lalala.m4a', 'music');
+game.module('game.main').require('engine.core', 'game.moduleBoat',
+        'game.moduleBlue', 'engine.audio', 'engine.keyboard').body(function() {
+    game.addAudio('audio/lalala.m4a', 'music');
 
-	    SceneGame = game.Scene.extend({
-	      backgroundColor : 0xb9bec7,
+    SceneGame = game.Scene.extend({
+        backgroundColor : 0xb9bec7,
 
-	      init : function() {
-		      game.audio.playMusic('music');
-
-		      // add one central red dot after 3 seconds
-		      this.addTimer(1500, function() {
-			      var redDotObj = new RedDotClass(game.system.width / 2,
-			          game.system.height / 2);
-		      });
-
-		      // add one randomly positioned blue dot every new milliseconds
-		      this.addTimer(1000, function() {
-			      var rndX = Math.random() * game.system.width;
-			      var rndY = Math.random() * game.system.height;
-			      var blueDotObj = new BlueDotClass(rndX, rndY);
-		      }, true);
-	      },
-
-	      mousemove : function(e) {
-		      var x = e.global.x;
-		      var y = e.global.y;
-		      new BlueDotClass(x, y);
-	      },
-
-	      mouseout : function() {
-		      game.system.setScene(SceneEnd);
-	      }
-	    });
-
-	    game.addAsset('myBitmapFont.fnt');
-
-	    SceneEnd = game.Scene.extend({
-	      backgroundColor : 0xFF0000,
-
-	      init : function() {
-		      // switch to the game scene after some time
-		      this.addTimer(2000, function() {
-			      game.system.setScene(SceneGame);
-		      });
-
-		      var text = new game.BitmapText('Hello BitmapFont!', {
-			      font : 'Arial'
-		      }); // the font has to be the "face" from the .fnt file.
-		      this.stage.addChild(text);
-	      },
-
-	      mousemove : function() {
-		      game.system.setScene(SceneGame);
-	      }
-	    });
-
-	    game.start(SceneGame, 1920, 1080);
-
+        boat : null,
+        
+        init : function() {
+            game.audio.playMusic('music');
+            this.boat = new Boat(game.system.width / 2, game.system.height / 2);
+            this.addObject(this.boat);
+        },
     });
+
+    game.addAsset('myBitmapFont.fnt');
+
+    game.start(SceneGame, 1920, 1080);
+
+});
