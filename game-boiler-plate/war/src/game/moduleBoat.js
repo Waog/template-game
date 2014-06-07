@@ -1,11 +1,15 @@
 game
         .module('game.moduleBoat')
-        .require('engine.particle', 'engine.audio', 'engine.keyboard', 'game.moduleBalancing')
+        .require('engine.particle', 'engine.audio', 'engine.keyboard',
+                'game.moduleBalancing')
         .body(
                 function() {
 
                     game.addAsset('redDot.png');
                     game.addAsset('boat.png');
+                    game.addAsset('player1.png');
+                    game.addAsset('player2.png');
+                    game.addAsset('box.png');
                     game.addAudio('audio/hurt.m4a', 'clickSound');
 
                     Boat = game.Class
@@ -13,10 +17,14 @@ game
 
                                 x : 0, // position
                                 y : 0, // position
-                                a : 0, // angle
+                                a : 2, // angle
                                 vX : 0, // velocity
                                 vY : 0, // velocity
                                 vA : 0, // angular velocity
+                                body : null,
+                                bodySprite : null,
+                                player1Sprite : null,
+                                player2Sprite : null,
 
                                 init : function(x, y) {
                                     this.x = x;
@@ -27,6 +35,39 @@ game
                                     this.sprite.anchor.set(0.5, 0.5);
                                     this.sprite.scale.set(.4, .4);
                                     game.scene.stage.addChild(this.sprite);
+
+                                    this.player1Sprite = new game.Sprite(
+                                            'player1.png');
+                                    this.player1Sprite.anchor.set(0.8, 0.63);
+                                    this.player1Sprite.position.set(0,
+                                            110 - 152.5);
+                                    this.sprite.addChild(this.player1Sprite);
+
+                                    this.player2Sprite = new game.Sprite(
+                                            'player2.png');
+                                    this.player2Sprite.anchor.set(0.167, 0.519);
+                                    this.player2Sprite.position.set(0,
+                                            230.5 - 152.5);
+                                    this.sprite.addChild(this.player2Sprite);
+
+                                    this.bodySprite = new game.Sprite('box.png');
+                                    this.bodySprite.position.set(x, y);
+                                    this.bodySprite.width = 100;
+                                    this.bodySprite.height = 100;
+                                    game.scene.stage.addChild(this.bodySprite);
+
+                                    // 
+                                    this.body = new game.Body({
+                                        position : {
+                                            x : x,
+                                            y : y
+                                        },
+                                        collideAgainst : 1,
+                                        collisionGroup : 1
+                                    });
+                                    var shape = new game.Rectangle(100, 100);
+                                    this.body.addShape(shape);
+                                    game.world.addBody(this.body);
 
                                     this.render();
                                 },
@@ -45,6 +86,14 @@ game
                                     // position
                                     this.a += this.vA * game.system.delta; // update
                                     // angle
+
+                                    this.body.position.x = this.x - 50;
+                                    this.body.position.y = this.y - 50;
+                                    this.bodySprite.position.set(this.x - 50,
+                                            this.y - 50);
+
+                                    console.log(game.world.solver.hitTest(
+                                            this.body, game.stone.body));
 
                                     this.render();
                                 },
@@ -89,7 +138,7 @@ game
                                 handleKeysV2 : function() {
 
                                     var activeSlowMultiplier = 0.9;
-                                    
+
                                     // meassure left down
                                     var leftReleased = false;
                                     var leftReleasedAfter = -1;
@@ -114,11 +163,17 @@ game
                                         this.vX += game.balancing.paddlePowerV2
                                                 * Math.sin(this.a);
 
+                                        var tween = new game.Tween(
+                                                this.player1Sprite);
+                                        tween.to({
+                                            rotation : [ -0.5, 0 ]
+                                        }, 100);
+                                        tween.start();
                                     }
                                     // else if button is hold down: slow down
                                     if (leftDown
                                             && this.leftDownTime > game.balancing.downTimeToSlow) {
-                                        console.log("slooow down!");
+                                        // console.log("slooow down!");
                                         this.vA *= activeSlowMultiplier;
                                         this.vY *= activeSlowMultiplier;
                                         this.vX *= activeSlowMultiplier;
@@ -148,11 +203,18 @@ game
                                         this.vX += game.balancing.paddlePowerV2
                                                 * Math.sin(this.a);
 
+                                        var tween = new game.Tween(
+                                                this.player2Sprite);
+                                        tween.to({
+                                            rotation : [ 0.5, 0 ]
+                                        }, 100);
+                                        tween.start();
+
                                     }
                                     // else if button is hold down: slow down
                                     if (rightDown
                                             && this.rightDownTime > game.balancing.downTimeToSlow) {
-                                        console.log("slooow down!");
+                                        // console.log("slooow down!");
                                         this.vA *= activeSlowMultiplier;
                                         this.vY *= activeSlowMultiplier;
                                         this.vX *= activeSlowMultiplier;
