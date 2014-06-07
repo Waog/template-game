@@ -1,6 +1,6 @@
 game
         .module('game.moduleBoat')
-        .require('engine.particle', 'engine.audio', 'engine.keyboard')
+        .require('engine.particle', 'engine.audio', 'engine.keyboard', 'game.moduleBalancing')
         .body(
                 function() {
 
@@ -17,11 +17,6 @@ game
                                 vX : 0, // velocity
                                 vY : 0, // velocity
                                 vA : 0, // angular velocity
-                                paddlePower : 40,
-                                paddlePowerAngle : 1,
-                                paddlePowerV2 : 40,
-                                paddlePowerAngleV2 : 1,
-                                slowRate : 0.99,
 
                                 init : function(x, y) {
                                     this.x = x;
@@ -38,9 +33,9 @@ game
 
                                 update : function() {
                                     // slow down the boat
-                                    this.vA *= this.slowRate;
-                                    this.vX *= this.slowRate;
-                                    this.vY *= this.slowRate;
+                                    this.vA *= game.balancing.slowRate;
+                                    this.vX *= game.balancing.slowRate;
+                                    this.vY *= game.balancing.slowRate;
 
                                     this.handleKeysV2();
 
@@ -63,23 +58,23 @@ game
                                 handleKeysV1 : function() {
                                     var spaceHit = game.keyboard.down("A");
                                     if (spaceHit) {
-                                        this.vA += this.paddlePowerAngle
+                                        this.vA += game.balancing.paddlePowerAngle
                                                 * game.system.delta;
-                                        this.vY -= this.paddlePower
+                                        this.vY -= game.balancing.paddlePower
                                                 * Math.cos(this.a)
                                                 * game.system.delta;
-                                        this.vX += this.paddlePower
+                                        this.vX += game.balancing.paddlePower
                                                 * Math.sin(this.a)
                                                 * game.system.delta;
                                     }
                                     var spaceHit = game.keyboard.down("K");
                                     if (spaceHit) {
-                                        this.vA -= this.paddlePowerAngle
+                                        this.vA -= game.balancing.paddlePowerAngle
                                                 * game.system.delta;
-                                        this.vY -= this.paddlePower
+                                        this.vY -= game.balancing.paddlePower
                                                 * Math.cos(this.a)
                                                 * game.system.delta;
-                                        this.vX += this.paddlePower
+                                        this.vX += game.balancing.paddlePower
                                                 * Math.sin(this.a)
                                                 * game.system.delta;
                                     }
@@ -89,7 +84,6 @@ game
                                 leftDownTime : 0,
                                 rightDownLastUpdate : false,
                                 rightDownTime : 0,
-                                downTimeToSlow : 0.3,
 
                                 // tapping = accelerating, holding = slowing
                                 handleKeysV2 : function() {
@@ -113,17 +107,17 @@ game
 
                                     // if button hit short: paddle
                                     if (leftReleased
-                                            && leftReleasedAfter < this.downTimeToSlow) {
-                                        this.vA += this.paddlePowerAngleV2;
-                                        this.vY -= this.paddlePowerV2
+                                            && leftReleasedAfter < game.balancing.downTimeToSlow) {
+                                        this.vA += game.balancing.paddlePowerAngleV2;
+                                        this.vY -= game.balancing.paddlePowerV2
                                                 * Math.cos(this.a);
-                                        this.vX += this.paddlePowerV2
+                                        this.vX += game.balancing.paddlePowerV2
                                                 * Math.sin(this.a);
 
                                     }
                                     // else if button is hold down: slow down
                                     if (leftDown
-                                            && this.leftDownTime > this.downTimeToSlow) {
+                                            && this.leftDownTime > game.balancing.downTimeToSlow) {
                                         console.log("slooow down!");
                                         this.vA *= activeSlowMultiplier;
                                         this.vY *= activeSlowMultiplier;
@@ -147,17 +141,17 @@ game
 
                                     // if button hit short: paddle
                                     if (rightReleased
-                                            && rightReleasedAfter < this.downTimeToSlow) {
-                                        this.vA -= this.paddlePowerAngleV2;
-                                        this.vY -= this.paddlePowerV2
+                                            && rightReleasedAfter < game.balancing.downTimeToSlow) {
+                                        this.vA -= game.balancing.paddlePowerAngleV2;
+                                        this.vY -= game.balancing.paddlePowerV2
                                                 * Math.cos(this.a);
-                                        this.vX += this.paddlePowerV2
+                                        this.vX += game.balancing.paddlePowerV2
                                                 * Math.sin(this.a);
 
                                     }
                                     // else if button is hold down: slow down
                                     if (rightDown
-                                            && this.rightDownTime > this.downTimeToSlow) {
+                                            && this.rightDownTime > game.balancing.downTimeToSlow) {
                                         console.log("slooow down!");
                                         this.vA *= activeSlowMultiplier;
                                         this.vY *= activeSlowMultiplier;
