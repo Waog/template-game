@@ -1,10 +1,13 @@
-game.module('game.moduleStone').require('engine.particle', 'engine.audio',
+game.module('game.moduleStone').require('engine.particle', 'engine.audio', 'utils.Util',
         'engine.physics').body(
         function() {
 
             game.addAsset('stone.png');
             game.addAsset('box.png');
             game.addAsset('shark.png');
+
+            game.addAudio('audio/voice1.m4a', 'voice1');
+            game.addAudio('audio/voice2.m4a', 'voice2');
 
             Stone = game.Class
                     .extend({
@@ -33,16 +36,16 @@ game.module('game.moduleStone').require('engine.particle', 'engine.audio',
                             this.sprite = new game.Container();
                             this.sprite.position.set(x, y);
                             game.boatLayer.addChild(this.sprite);
-                                
+
                             this.sharkSprite = new game.Sprite('shark.png');
                             this.sharkSprite.anchor.set(2, 2);
                             this.sharkSprite.rotation = 0;
                             this.sprite.addChild(this.sharkSprite);
-                            
+
                             var goalSprite = new game.Sprite('stone.png');
                             goalSprite.anchor.set(0.5, 0.5);
                             this.sprite.addChild(goalSprite);
-                            
+
                             this.body = new game.Body({
                                 position : {
                                     x : x,
@@ -61,9 +64,8 @@ game.module('game.moduleStone').require('engine.particle', 'engine.audio',
                             this.bodySprite.width = 100;
                             this.bodySprite.height = 100;
                             game.scene.stage.addChild(this.bodySprite);
-                            
-                            var scaleTween = new game.Tween(
-                                    this.sprite.scale);
+
+                            var scaleTween = new game.Tween(this.sprite.scale);
                             scaleTween.to({
                                 x : 1.1,
                                 y : 1.1
@@ -119,6 +121,8 @@ game.module('game.moduleStone').require('engine.particle', 'engine.audio',
                                     1 - timeLeftInPercent, 3);
 
                             this.render();
+
+                            this.playSounds();
                         },
 
                         emitInterval : 0.1,
@@ -161,6 +165,26 @@ game.module('game.moduleStone').require('engine.particle', 'engine.audio',
                             this.vX += 3 * (Math.random() - 0.5);
                             this.vY += 3 * (Math.random() - 0.5);
                             this.vA += 0.1 * (Math.random() - 0.5);
+                        },
+
+                        soundInterval : 8,
+
+                        timeToNextSound : 5,
+
+                        playSounds : function() {
+
+                            this.timeToNextSound -= game.system.delta;
+
+                            if (this.timeToNextSound <= 0) {
+                                this.timeToNextSound = this.soundInterval / 2
+                                        + Math.random() * this.soundInterval
+                                        / 2;
+                                
+                                var soundAsset = 'voice' + game.util.getRandomInt(1,2);
+                                game.audio.playSound(soundAsset, false, 1 + Math
+                                        .random() + 3, function() {
+                                }, 0.2 * Math.random() + 0.9);
+                            }
                         }
                     });
 

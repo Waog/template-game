@@ -2,8 +2,9 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
         'game.moduleBoat', 'game.moduleStone', 'game.moduleWaveGenerator',
         'game.moduleBlue', 'engine.audio', 'engine.keyboard').body(
         function() {
-            game.addAudio('audio/Ocean_2.wav', 'music');
-            game.addAudio('audio/scream.wav', 'lose');
+            game.addAudio('audio/Ocean_2.m4a', 'music');
+            game.addAudio('audio/scream2.m4a', 'lose');
+            game.addAudio('audio/yes_hahaha.m4a', 'win');
 
             game.addAsset('title.png');
             game.addAsset('credits.png');
@@ -134,7 +135,16 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     this.addObject(waveGen);
                 },
 
+                winningSequenceActive : false,
+                
                 onWin : function() {
+                    if (this.winningSequenceActive) {
+                        return;
+                    }
+                    this.winningSequenceActive = true;
+                    
+                    game.audio.playSound('win', false, 4);
+
                     var winOverlay = new game.Sprite('win.png');
                     winOverlay.alpha = 0;
                     game.scene.stage.addChild(winOverlay);
@@ -144,12 +154,21 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                         alpha : 1
                     }, 2000);
                     tween.onComplete(function() {
+                        this.winningSequenceActive = false;
                         game.system.setScene(WinScreen);
                     })
                     tween.start();
                 },
 
+                losingSequenceActive : false,
+
                 onLose : function() {
+
+                    if (this.losingSequenceActive) {
+                        return;
+                    }
+                    this.losingSequenceActive = true;
+
                     game.audio.playSound('lose', false, 1);
 
                     var loseOverlay = new game.Sprite('lose.png');
@@ -161,6 +180,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                         alpha : 1
                     }, 3000);
                     tween.onComplete(function() {
+                        this.losingSequenceActive = false;
                         game.system.setScene(LoseScreen);
                     })
                     tween.start();

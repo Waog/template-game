@@ -31,4 +31,6 @@ game.module('utils.Util').body(function() {
 	  }
 
 	});
+	
+	game.util = new Util();
 });
