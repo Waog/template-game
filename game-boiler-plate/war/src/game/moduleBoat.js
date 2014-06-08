@@ -76,6 +76,16 @@ game
                                     game.world.addBody(this.body);
 
                                     this.render();
+
+                                    var scaleTween = new game.Tween(
+                                            this.sprite.scale);
+                                    scaleTween.to({
+                                        x : 0.45,
+                                        y : 0.45
+                                    }, 2000);
+                                    scaleTween.repeat(Number.MAX_SAFE_INTEGER);
+                                    scaleTween.yoyo();
+                                    scaleTween.start();
                                 },
 
                                 update : function() {
@@ -141,14 +151,14 @@ game
                                         emitter.positionVar.x = 30;
                                         emitter.positionVar.y = 30;
                                         emitter.life = 3; // particle exists
-                                                            // for
+                                        // for
                                         // that many seconds
                                         emitter.lifeVar = 0.5;
                                         emitter.rate = 0.1; // Emit particles
                                         // every _rate_
                                         // second
                                         emitter.count = 6; // Emit _count_
-                                                            // particles
+                                        // particles
                                         game.scene.addEmitter(emitter);
                                     }
                                 },

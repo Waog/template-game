@@ -30,16 +30,19 @@ game.module('game.moduleStone').require('engine.particle', 'engine.audio',
 
                             this.timeLeft = this.TOTAL_TIME;
 
-                            this.sprite = new game.Sprite('stone.png');
-                            this.sprite.anchor.set(0.5, 0.5);
+                            this.sprite = new game.Container();
                             this.sprite.position.set(x, y);
                             game.boatLayer.addChild(this.sprite);
-
+                                
                             this.sharkSprite = new game.Sprite('shark.png');
                             this.sharkSprite.anchor.set(2, 2);
                             this.sharkSprite.rotation = 0;
                             this.sprite.addChild(this.sharkSprite);
-
+                            
+                            var goalSprite = new game.Sprite('stone.png');
+                            goalSprite.anchor.set(0.5, 0.5);
+                            this.sprite.addChild(goalSprite);
+                            
                             this.body = new game.Body({
                                 position : {
                                     x : x,
@@ -58,6 +61,16 @@ game.module('game.moduleStone').require('engine.particle', 'engine.audio',
                             this.bodySprite.width = 100;
                             this.bodySprite.height = 100;
                             game.scene.stage.addChild(this.bodySprite);
+                            
+                            var scaleTween = new game.Tween(
+                                    this.sprite.scale);
+                            scaleTween.to({
+                                x : 1.1,
+                                y : 1.1
+                            }, 2000);
+                            scaleTween.repeat(Number.MAX_SAFE_INTEGER);
+                            scaleTween.yoyo();
+                            scaleTween.start();
                         },
 
                         update : function() {
