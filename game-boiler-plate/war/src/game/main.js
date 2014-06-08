@@ -16,7 +16,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     
                     game.audio.playMusic('music');
                     game.stone = new Stone(1800, 900);
-                    game.boat = new Boat(game.system.width - 20, game.system.height - 20);
+                    game.boat = new Boat(0, 0);
                     this.addObject(game.boat);
                     
                     var waveGen = new WaveGenerator();

@@ -93,7 +93,7 @@ game
 
                                     // console.log('boat-stone-hit',
                                     // game.world.solver.hitTest(
-                                    //                                            this.body, game.stone.body));
+                                    // this.body, game.stone.body));
 
                                     this.render();
                                 },
@@ -179,7 +179,9 @@ game
                                     if (leftDown
                                             && this.leftDownTime > game.balancing.downTimeToSlow) {
                                         // console.log("slooow down!");
-                                        this.vA *= activeSlowMultiplier;
+                                        if (this.vA > 0) {
+                                            this.vA *= activeSlowMultiplier;
+                                        }
                                         this.vY *= activeSlowMultiplier;
                                         this.vX *= activeSlowMultiplier;
                                     }
@@ -224,7 +226,9 @@ game
                                     if (rightDown
                                             && this.rightDownTime > game.balancing.downTimeToSlow) {
                                         // console.log("slooow down!");
-                                        this.vA *= activeSlowMultiplier;
+                                        if (this.vA < 0) {
+                                            this.vA *= activeSlowMultiplier;
+                                        }
                                         this.vY *= activeSlowMultiplier;
                                         this.vX *= activeSlowMultiplier;
                                     }

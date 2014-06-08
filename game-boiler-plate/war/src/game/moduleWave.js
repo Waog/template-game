@@ -110,9 +110,7 @@ game.module('game.moduleWave').require('engine.particle', 'engine.audio',
                             || this.y > game.system.height + 300) {
                         // console.log('outside!');
                         this.removeWave();
-                    }
-
-                    if (this.wavePower <= 0) {
+                    } else if (this.wavePower <= 0) {
                         // console.log('to weak!');
                         this.removeWave();
                     }

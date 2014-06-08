@@ -10,7 +10,8 @@ game
 
                                 timeToNextWave : 0,
                                 timeToNextPushBackWave : 0,
-                                timeInterval : 1,
+                                waveInterval : 3,
+                                pushBackInterval : 1,
 
                                 init : function() {
                                 },
@@ -19,7 +20,7 @@ game
                                     // generate random waves
                                     this.timeToNextWave -= game.system.delta;
                                     if (this.timeToNextWave <= 0) {
-                                        this.timeToNextWave = this.timeInterval;
+                                        this.timeToNextWave = this.waveInterval;
                                         this.genRandomWave();
                                     }
 
@@ -35,20 +36,28 @@ game
                                                 || game.boat.y > game.system.height
                                                         - padding) {
                                             this.genPushBackWave();
-                                            this.timeToNextPushBackWave = this.timeInterval;
+                                            this.timeToNextPushBackWave = this.pushBackInterval;
                                         }
                                     }
                                 },
 
                                 genRandomWave : function() {
-                                    var x = game.system.width * Math.random();
-                                    var y = game.system.height * Math.random();
+                                    var centerX = game.system.width * Math.random();
+                                    var centerY = game.system.height * Math.random();
+                                    var sizeX = game.system.width * Math.random();
+                                    var sizeY = game.system.height * Math.random();
+                                    var elementCount = Math.ceil(sizeX / 100 * sizeY / 100 * Math.random());
                                     var a = 2 * Math.PI * Math.random();
-                                    var lifeTime = 10000 * Math.random();
-                                    var maxInfluence = 0.3 * Math.random();
-                                    var wave = new Wave(x, y, a, lifeTime,
-                                            maxInfluence);
-                                    game.scene.addObject(wave);
+                                    
+                                    for (var i = 0; i < elementCount; i++) {
+                                        var x = centerX - sizeX / 2 + Math.random() * sizeX;
+                                        var y = centerY - sizeY / 2 + Math.random() * sizeY;
+                                        var lifeTime = 4 * 1000 * this.waveInterval * Math.random();
+                                        var maxInfluence = 0.1 * Math.random();
+                                        var wave = new Wave(x, y, a, lifeTime,
+                                                maxInfluence);
+                                        game.scene.addObject(wave);   
+                                    }
                                 },
 
                                 genPushBackWave : function() {
