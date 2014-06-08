@@ -31,6 +31,8 @@ game.module('game.moduleBg').require('engine.particle', 'engine.audio').body(
                                     var sprite = new game.Sprite(
                                             'texture_surface.png');
                                     sprite.position.set(x, y);
+                                    sprite.rotation = 2 * Math.PI
+                                            * Math.random();
                                     sprite.scale.set(scale, scale);
                                     this.applyTweening(sprite);
                                     game.surfaceLayer.addChild(sprite);

@@ -6,8 +6,8 @@ game.module('game.moduleBalancing').require().body(function() {
         // boat:
         paddlePower : 40,
         paddlePowerAngle : 1,
-        paddlePowerV2 : 40,
-        paddlePowerAngleV2 : 0.7,
+        paddlePowerV2 : 20,
+        paddlePowerAngleV2 : 0.8,
         slowRate : 0.99,
         downTimeToSlow : 0.3,
         waveVelocity : 100

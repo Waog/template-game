@@ -22,6 +22,8 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
 
                 init : function() {
 
+                    game.audio.playMusic('music', 0.7);
+                    
                     var bg = new game.Sprite('title.png');
                     game.scene.stage.addChild(bg);
                     var startBtn = new game.Sprite('startBtn.png');
@@ -124,7 +126,6 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
 
                     new BG();
 
-                    game.audio.playMusic('music');
                     game.stone = new Stone(game.system.width * 1.1,
                             game.system.height * 1.1, this.onLose);
                     this.addObject(game.stone);
