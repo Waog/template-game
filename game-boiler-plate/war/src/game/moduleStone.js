@@ -11,8 +11,8 @@ game.module('game.moduleStone').require('engine.particle', 'engine.audio',
                         body : null,
                         bodySprite : null,
                         sharkSprite : null,
-                        timeLeft : 60,
-                        TOTAL_TIME : 60,
+                        timeLeft : 30,
+                        TOTAL_TIME : 30,
                         loseCallback : null,
                         x : 0, // position
                         y : 0, // position

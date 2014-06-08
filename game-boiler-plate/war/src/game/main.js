@@ -3,6 +3,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
         'game.moduleBlue', 'engine.audio', 'engine.keyboard').body(
         function() {
             game.addAudio('audio/Ocean_2.wav', 'music');
+            game.addAudio('audio/scream.wav', 'lose');
 
             game.addAsset('title.png');
             game.addAsset('credits.png');
@@ -117,7 +118,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     game.scene.stage.addChild(game.boatLayer);
                     game.skyLayer = new game.Container();
                     game.scene.stage.addChild(game.skyLayer);
-                    
+
                     game.world = new game.World(0, 0);
 
                     new BG();
@@ -149,6 +150,8 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                 },
 
                 onLose : function() {
+                    game.audio.playSound('lose', false, 1);
+
                     var loseOverlay = new game.Sprite('lose.png');
                     loseOverlay.alpha = 0;
                     game.scene.stage.addChild(loseOverlay);
@@ -156,7 +159,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     var tween = new game.Tween(loseOverlay);
                     tween.to({
                         alpha : 1
-                    }, 2000);
+                    }, 3000);
                     tween.onComplete(function() {
                         game.system.setScene(LoseScreen);
                     })
