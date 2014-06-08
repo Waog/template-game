@@ -1,4 +1,4 @@
-game.module('game.moduleWaves').require('engine.particle', 'engine.audio',
+game.module('game.moduleWave').require('engine.particle', 'engine.audio',
         'game.moduleBalancing').body(
         function() {
 
@@ -19,10 +19,12 @@ game.module('game.moduleWaves').require('engine.particle', 'engine.audio',
                 waveMaxInfluence : 0.1,
                 waveLifeTime : 10000,
 
-                init : function(x, y, a) {
+                init : function(x, y, a, lifeTime, maxInfluence) {
                     this.x = x;
                     this.y = y;
                     this.a = a;
+                    this.waveLifeTime = lifeTime;
+                    this.waveMaxInfluence = maxInfluence;
 
                     this.vX = game.balancing.waveVelocity * Math.sin(a);
                     this.vY = -game.balancing.waveVelocity * Math.cos(a);
@@ -91,7 +93,7 @@ game.module('game.moduleWaves').require('engine.particle', 'engine.audio',
                         return;
                     }
 
-                    console.log('wave-boat-hit!');
+                    // console.log('wave-boat-hit!');
                     game.boat.vX = this.waveMaxInfluence * this.wavePower
                             * this.vX
                             + (1 - this.waveMaxInfluence * this.wavePower)
@@ -106,16 +108,16 @@ game.module('game.moduleWaves').require('engine.particle', 'engine.audio',
                     if (this.x < -300 || this.y < -300
                             || this.x > game.system.width + 300
                             || this.y > game.system.height + 300) {
-                        console.log('outside!');
+                        // console.log('outside!');
                         this.removeWave();
                     }
-                    
+
                     if (this.wavePower <= 0) {
-                        console.log('to weak!');
+                        // console.log('to weak!');
                         this.removeWave();
                     }
                 },
-                
+
                 removeWave : function() {
                     game.scene.stage.removeChild(this.sprite);
                     game.scene.stage.removeChild(this.bodySprite);
