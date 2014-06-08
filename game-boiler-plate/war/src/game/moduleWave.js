@@ -32,9 +32,8 @@ game.module('game.moduleWave').require('engine.particle', 'engine.audio',
                     // load the sprite
                     this.sprite = new game.Sprite('wave.png');
                     this.sprite.anchor.set(0.5, 0.5);
-                    // this.sprite.scale.set(.4, .4);
                     this.sprite.rotation = a;
-                    game.scene.stage.addChild(this.sprite);
+                    game.spumeLayer.addChild(this.sprite);
 
                     this.bodySprite = new game.Sprite('box.png');
                     this.bodySprite.position.set(x, y);
@@ -75,17 +74,51 @@ game.module('game.moduleWave').require('engine.particle', 'engine.audio',
                     this.bodySprite.position.set(this.x - 50, this.y - 50);
 
                     this.handleBoatCollision();
-                    // console.log('wave-stone-hit', game.world.solver.hitTest(
-                    // this.body, game.stone.body));
+                    this.handleGoalCollision();
 
                     this.checkAlive();
 
                     this.render();
                 },
 
+                emitInterval : 0.1,
+
+                timeToNextEmit : 0,
+                
                 render : function() {
+                    var alphaMax = 0.3;
+                    
                     this.sprite.position.set(this.x, this.y);
-                    this.sprite.alpha = this.wavePower;
+                    this.sprite.alpha = alphaMax * this.wavePower;
+                    
+                    // particles
+                    this.timeToNextEmit -= game.system.delta;
+                    if (this.timeToNextEmit <= 0) {
+                        this.timeToNextEmit = this.emitInterval;
+
+                        var emitter = new game.Emitter();
+                        emitter.container = game.spumeLayer;
+                        emitter.textures
+                                .push('spumeParticle.png');
+                        emitter.position.set(this.x, this.y);
+                        emitter.angle = this.a - Math.PI / 2;
+                        emitter.angleVar = Math.PI / 4;
+                        emitter.duration = 0.21;
+                        emitter.startScale = 1;
+                        emitter.endScale = 5;
+                        emitter.startAlpha = 1;
+                        emitter.endAlpha = 0;
+                        emitter.life = 1; // particle exists
+                                            // for
+                        // that many seconds
+                        emitter.lifeVar = 0.5;
+                        emitter.rate = 0.1; // Emit particles
+                        // every _rate_
+                        // second
+                        emitter.count = 1; // Emit _count_
+                                            // particles
+                        game.scene.addEmitter(emitter);
+                    }
                 },
 
                 handleBoatCollision : function() {
@@ -103,6 +136,22 @@ game.module('game.moduleWave').require('engine.particle', 'engine.audio',
                             + (1 - this.waveMaxInfluence * this.wavePower)
                             * game.boat.vY;
                 },
+                
+                handleGoalCollision : function() {
+                    if (!game.world.solver.hitTest(this.body, game.stone.body)) {
+                        return;
+                    }
+                    
+                    // console.log('wave-boat-hit!');
+                    game.stone.vX = this.waveMaxInfluence * this.wavePower
+                    * this.vX
+                    + (1 - this.waveMaxInfluence * this.wavePower)
+                    * game.stone.vX;
+                    game.stone.vY = this.waveMaxInfluence * this.wavePower
+                    * this.vY
+                    + (1 - this.waveMaxInfluence * this.wavePower)
+                    * game.stone.vY;
+                },
 
                 checkAlive : function() {
                     if (this.x < -300 || this.y < -300
@@ -117,7 +166,7 @@ game.module('game.moduleWave').require('engine.particle', 'engine.audio',
                 },
 
                 removeWave : function() {
-                    game.scene.stage.removeChild(this.sprite);
+                    game.spumeLayer.removeChild(this.sprite);
                     game.scene.stage.removeChild(this.bodySprite);
                     game.scene.removeObject(this);
                 }

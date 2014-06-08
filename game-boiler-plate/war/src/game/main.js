@@ -105,15 +105,28 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                 boat : null,
 
                 init : function() {
+                    game.groundLayer = new game.Container();
+                    game.scene.stage.addChild(game.groundLayer);
+                    game.fishLayer = new game.Container();
+                    game.scene.stage.addChild(game.fishLayer);
+                    game.surfaceLayer = new game.Container();
+                    game.scene.stage.addChild(game.surfaceLayer);
+                    game.spumeLayer = new game.Container();
+                    game.scene.stage.addChild(game.spumeLayer);
+                    game.boatLayer = new game.Container();
+                    game.scene.stage.addChild(game.boatLayer);
+                    game.skyLayer = new game.Container();
+                    game.scene.stage.addChild(game.skyLayer);
+                    
                     game.world = new game.World(0, 0);
 
                     new BG();
 
                     game.audio.playMusic('music');
-                    game.stone = new Stone(game.system.width * .9,
-                            game.system.height * .9, this.onLose);
+                    game.stone = new Stone(game.system.width * 1.1,
+                            game.system.height * 1.1, this.onLose);
                     this.addObject(game.stone);
-                    game.boat = new Boat(30, 30, this.onWin, this.onLose);
+                    game.boat = new Boat(0, 0, this.onWin, this.onLose);
                     this.addObject(game.boat);
 
                     var waveGen = new WaveGenerator();

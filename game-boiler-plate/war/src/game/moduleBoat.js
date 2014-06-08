@@ -9,6 +9,7 @@ game
                     game.addAsset('player1.png');
                     game.addAsset('player2.png');
                     game.addAsset('box.png');
+                    game.addAsset('spumeParticle.png');
                     game.addAudio('audio/splash.m4a', 'clickSound');
 
                     Boat = game.Class
@@ -32,24 +33,28 @@ game
                                     this.loseCallback = loseCallback;
 
                                     // load the sprite
-                                    this.sprite = new game.Sprite('boat.png');
-                                    this.sprite.anchor.set(0.5, 0.5);
+                                    this.sprite = new game.Container();
                                     this.sprite.scale.set(.4, .4);
-                                    game.scene.stage.addChild(this.sprite);
+                                    game.boatLayer.addChild(this.sprite);
+
+                                    var boatSprite = new game.Sprite('boat.png');
+                                    boatSprite.anchor.set(0.5, 0.5);
+                                    // boatSprite.scale.set(.4, .4);
+                                    this.sprite.addChild(boatSprite);
 
                                     this.player1Sprite = new game.Sprite(
                                             'player1.png');
                                     this.player1Sprite.anchor.set(0.8, 0.63);
                                     this.player1Sprite.position.set(0,
                                             110 - 152.5);
-                                    this.sprite.addChild(this.player1Sprite);
+                                    boatSprite.addChild(this.player1Sprite);
 
                                     this.player2Sprite = new game.Sprite(
                                             'player2.png');
                                     this.player2Sprite.anchor.set(0.167, 0.519);
                                     this.player2Sprite.position.set(0,
                                             230.5 - 152.5);
-                                    this.sprite.addChild(this.player2Sprite);
+                                    boatSprite.addChild(this.player2Sprite);
 
                                     this.bodySprite = new game.Sprite('box.png');
                                     this.bodySprite.position.set(x, y);
@@ -105,12 +110,47 @@ game
                                         return;
                                     }
                                     this.winCallback();
-                                    
+
                                 },
+
+                                emitInterval : 0.1,
+
+                                timeToNextEmit : 0,
 
                                 render : function() {
                                     this.sprite.position.set(this.x, this.y);
                                     this.sprite.rotation = this.a;
+
+                                    // particles
+                                    this.timeToNextEmit -= game.system.delta;
+                                    if (this.timeToNextEmit <= 0) {
+                                        this.timeToNextEmit = this.emitInterval;
+
+                                        var emitter = new game.Emitter();
+                                        emitter.container = game.spumeLayer;
+                                        emitter.textures
+                                                .push('spumeParticle.png');
+                                        emitter.position.set(this.x, this.y);
+                                        emitter.duration = 0.3;
+                                        emitter.startScale = 1;
+                                        emitter.endScale = 5;
+                                        emitter.startAlpha = 0.6;
+                                        emitter.endAlpha = 0;
+                                        emitter.speed = 20;
+                                        emitter.speedVar = 5;
+                                        emitter.positionVar.x = 30;
+                                        emitter.positionVar.y = 30;
+                                        emitter.life = 3; // particle exists
+                                                            // for
+                                        // that many seconds
+                                        emitter.lifeVar = 0.5;
+                                        emitter.rate = 0.1; // Emit particles
+                                        // every _rate_
+                                        // second
+                                        emitter.count = 6; // Emit _count_
+                                                            // particles
+                                        game.scene.addEmitter(emitter);
+                                    }
                                 },
 
                                 // holding = accelerating

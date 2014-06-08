@@ -35,7 +35,20 @@ game
                                                 || game.boat.y < padding
                                                 || game.boat.y > game.system.height
                                                         - padding) {
-                                            this.genPushBackWave();
+                                            this.genPushBackWave(game.boat.x, game.boat.y);
+                                            this.timeToNextPushBackWave = this.pushBackInterval;
+                                        }
+                                    }
+                                    // if goal is close to screen border...
+                                    // push it back
+                                    if (this.timeToNextPushBackWave <= 0) {
+                                        if (game.stone.x < padding
+                                                || game.stone.x > game.system.width
+                                                - padding
+                                                || game.stone.y < padding
+                                                || game.stone.y > game.system.height
+                                                - padding) {
+                                            this.genPushBackWave(game.stone.x, game.stone.y);
                                             this.timeToNextPushBackWave = this.pushBackInterval;
                                         }
                                     }
@@ -60,15 +73,12 @@ game
                                     }
                                 },
 
-                                genPushBackWave : function() {
-                                    var x = game.boat.x;
-                                    var y = game.boat.y;
-
+                                genPushBackWave : function(x, y) {
                                     var quadrant = 0;
                                     var deltaX = Math.abs(game.system.width / 2
-                                            - game.boat.x);
+                                            - x);
                                     var deltaY = Math.abs(game.system.height
-                                            / 2 - game.boat.y);
+                                            / 2 - y);
                                     var a = 2 * Math.PI * Math.random();
                                     if (x < game.system.width / 2
                                             && y > game.system.height / 2) {

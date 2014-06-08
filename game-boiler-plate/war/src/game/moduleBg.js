@@ -19,7 +19,7 @@ game.module('game.moduleBg').require('engine.particle', 'engine.audio').body(
                                             'texture_water.png');
                                     sprite.position.set(x, y);
                                     sprite.scale.set(scale, scale);
-                                    game.scene.stage.addChild(sprite);
+                                    game.surfaceLayer.addChild(sprite);
                                 }
                             }
                         }
