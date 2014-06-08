@@ -10,6 +10,7 @@ game.module('game.moduleBalancing').require().body(function() {
         paddlePowerAngleV2 : 1,
         slowRate : 0.99,
         downTimeToSlow : 0.3,
+        waveVelocity : 100
     });
     
     game.balancing = new game.Balancing();

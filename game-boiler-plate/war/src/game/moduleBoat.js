@@ -5,7 +5,6 @@ game
         .body(
                 function() {
 
-                    game.addAsset('redDot.png');
                     game.addAsset('boat.png');
                     game.addAsset('player1.png');
                     game.addAsset('player2.png');
@@ -92,8 +91,9 @@ game
                                     this.bodySprite.position.set(this.x - 50,
                                             this.y - 50);
 
-                                    console.log(game.world.solver.hitTest(
-                                            this.body, game.stone.body));
+                                    // console.log('boat-stone-hit',
+                                    // game.world.solver.hitTest(
+                                    //                                            this.body, game.stone.body));
 
                                     this.render();
                                 },
