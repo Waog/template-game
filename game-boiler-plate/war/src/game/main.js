@@ -111,7 +111,8 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
 
                     game.audio.playMusic('music');
                     game.stone = new Stone(game.system.width * .9,
-                            game.system.height * .9);
+                            game.system.height * .9, this.onLose);
+                    this.addObject(game.stone);
                     game.boat = new Boat(30, 30, this.onWin, this.onLose);
                     this.addObject(game.boat);
 
