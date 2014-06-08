@@ -74,27 +74,21 @@ game
                                             && y > game.system.height / 2) {
                                         quadarant = 1;
                                         a = Math.atan(deltaX / deltaY);
-                                        console.log('q1, a=', a);
                                     } else if (x < game.system.width / 2
                                             && y < game.system.height / 2) {
                                         quadarant = 2;
                                         a = Math.atan(deltaY / deltaX) + 0.5
                                                 * Math.PI;
-                                        console.log('q2, a=', a, 'dX', deltaX,
-                                                'dy', deltaY);
                                     } else if (x > game.system.width / 2
                                             && y < game.system.height / 2) {
                                         quadarant = 3;
                                         a = Math.atan(deltaX / deltaY) + 1
                                                 * Math.PI;
-                                        console.log('q3, a=', a, 'dX', deltaX,
-                                                'dy', deltaY);
                                     } else if (x > game.system.width / 2
                                             && y > game.system.height / 2) {
                                         quadarant = 4;
                                         a = Math.atan(deltaY / deltaX) + 1.5
                                                 * Math.PI;
-                                        console.log('q4, a=', a);
                                     }
 
                                     var lifeTime = 500 * Math.random() + 500;

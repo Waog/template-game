@@ -25,9 +25,11 @@ game
                                 player1Sprite : null,
                                 player2Sprite : null,
 
-                                init : function(x, y) {
+                                init : function(x, y, winCallback, loseCallback) {
                                     this.x = x;
                                     this.y = y;
+                                    this.winCallback = winCallback;
+                                    this.loseCallback = loseCallback;
 
                                     // load the sprite
                                     this.sprite = new game.Sprite('boat.png');
@@ -91,11 +93,19 @@ game
                                     this.bodySprite.position.set(this.x - 50,
                                             this.y - 50);
 
-                                    // console.log('boat-stone-hit',
-                                    // game.world.solver.hitTest(
-                                    // this.body, game.stone.body));
-
                                     this.render();
+
+                                    this.checkWin();
+                                },
+
+                                checkWin : function() {
+                                    var playerHitsGoal = game.world.solver
+                                            .hitTest(this.body, game.stone.body);
+                                    if (!playerHitsGoal) {
+                                        return;
+                                    }
+                                    this.winCallback();
+                                    
                                 },
 
                                 render : function() {
