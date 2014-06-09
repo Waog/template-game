@@ -64,6 +64,28 @@ game.module('game.moduleBg').require('engine.particle', 'engine.audio').body(
                             overlayPositionYTween
                                     .easing(game.Tween.Easing.Quadratic.InOut);
                             overlayPositionYTween.start();
+
+                            var overlayScaleXTween = new game.Tween(
+                                    sprite.scale);
+                            overlayScaleXTween.to({
+                                x : 0.7 + Math.random() * 0.6,
+                            }, 4000 + 500 * Math.random());
+                            overlayScaleXTween.repeat(Number.MAX_SAFE_INTEGER);
+                            overlayScaleXTween.yoyo();
+                            overlayScaleXTween
+                                    .easing(game.Tween.Easing.Quadratic.InOut);
+                            overlayScaleXTween.start();
+
+                            var overlayScaleYTween = new game.Tween(
+                                    sprite.scale);
+                            overlayScaleYTween.to({
+                                y : 0.7 + Math.random() * 0.6,
+                            }, 4000 + 500 * Math.random());
+                            overlayScaleYTween.repeat(Number.MAX_SAFE_INTEGER);
+                            overlayScaleYTween.yoyo();
+                            overlayScaleYTween
+                                    .easing(game.Tween.Easing.Quadratic.InOut);
+                            overlayScaleYTween.start();
                         }
                     });
 

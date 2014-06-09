@@ -126,10 +126,11 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
 
                     new BG();
 
-                    game.stone = new Stone(game.system.width * 1.1,
-                            game.system.height * 1.1, this.onLose);
+                    game.stone = new Stone(game.system.width * 0.9,
+                            game.system.height * 0.9, this.onLose);
                     this.addObject(game.stone);
-                    game.boat = new Boat(0, 0, this.onWin, this.onLose);
+                    game.boat = new Boat(game.system.width * 0.1,
+                            game.system.height * 0.1, this.onWin, this.onLose);
                     this.addObject(game.boat);
 
                     var waveGen = new WaveGenerator();
@@ -179,7 +180,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     var tween = new game.Tween(loseOverlay);
                     tween.to({
                         alpha : 1
-                    }, 3000);
+                    }, 4000);
                     tween.onComplete(function() {
                         this.losingSequenceActive = false;
                         game.system.setScene(LoseScreen);
@@ -190,5 +191,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
 
             game.addAsset('myBitmapFont.fnt');
 
+//            game.System.webGL = true;
+            
             game.start(MainMenu, 1280, 1024);
         });

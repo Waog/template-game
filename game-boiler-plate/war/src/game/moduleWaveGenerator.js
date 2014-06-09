@@ -49,7 +49,7 @@ game
                                                 || game.stone.y > game.system.height
                                                 - padding) {
                                             this.genPushBackWave(game.stone.x, game.stone.y);
-                                            this.timeToNextPushBackWave = this.pushBackInterval;
+                                            this.timeToNextPushBackWave = this.pushBackInterval / 3;
                                         }
                                     }
                                 },
