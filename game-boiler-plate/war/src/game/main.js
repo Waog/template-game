@@ -1,5 +1,5 @@
 game.module('game.main').require('engine.core', 'game.moduleBg',
-        'game.moduleBoat', 'game.moduleStone', 'game.moduleWaveGenerator',
+        'game.moduleBoat', 'game.moduleStone', 'game.moduleWaveGenerator', 'game.moduleFishes',
         'game.moduleBlue', 'engine.audio', 'engine.keyboard').body(
         function() {
             game.addAudio('audio/Ocean_2.m4a', 'music');
@@ -134,6 +134,9 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     this.addObject(game.stone);
                     this.addObject(game.boat);
                     this.addObject(waveGen);
+                    
+//                    var fishes = new Fishes(500, 500, 2, 1000);
+//                    this.addObject(fishes);
                 },
 
                 winningSequenceActive : false,
