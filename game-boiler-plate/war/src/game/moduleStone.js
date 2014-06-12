@@ -5,9 +5,9 @@ game
         .body(
                 function() {
 
-                    game.addAsset('stone.png');
+                    game.addAsset('stoneSpriteSheet.json');
                     game.addAsset('box.png');
-                    game.addAsset('shark.png');
+                    game.addAsset('sharkSpriteSheet.json');
                     game.addAsset('bloodParticle.png');
                     game.addAsset('spumeParticle.png');
 
@@ -44,19 +44,23 @@ game
                                     this.sprite.position.set(x, y);
                                     game.boatLayer.addChild(this.sprite);
 
-                                    this.sharkSprite = new game.Sprite(
-                                            'shark.png');
+                                    this.sharkSprite = new game.Animation(
+                                            'shark1.png', 'shark2.png', 'shark1.png', 'shark3.png');
                                     this.sharkSprite.anchor.set(2, 2);
                                     this.sharkSprite.rotation = 0;
                                     this.sprite.addChild(this.sharkSprite);
-
+                                    this.sharkSprite.animationSpeed = 1;
+                                    this.sharkSprite.play();
+                                    
                                     this.sharkBlurFilter = new PIXI.BlurFilter();
                                     this.sharkSprite.filters = [ this.sharkBlurFilter ];
 
-                                    this.goalSprite = new game.Sprite(
-                                            'stone.png');
+                                    this.goalSprite = new game.Animation(
+                                            'stone1.png', 'stone2.png', 'stone3.png');
                                     this.goalSprite.anchor.set(0.5, 0.5);
                                     this.sprite.addChild(this.goalSprite);
+                                    this.goalSprite.animationSpeed = 0.2;
+                                    this.goalSprite.play();
 
                                     this.body = new game.Body({
                                         position : {
