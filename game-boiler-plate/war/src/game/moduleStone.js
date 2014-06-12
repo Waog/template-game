@@ -149,11 +149,10 @@ game
                                         return;
                                     }
                                     this.bloodEmiterStarted = true;
-                                    
+
                                     var emitter = new game.Emitter();
                                     emitter.container = game.spumeLayer;
-                                    emitter.textures
-                                            .push('bloodParticle.png');
+                                    emitter.textures.push('bloodParticle.png');
                                     emitter.position.set(this.x, this.y);
                                     emitter.duration = 20;
                                     emitter.startScale = 1;
@@ -174,7 +173,7 @@ game
                                     emitter.count = 6; // Emit _count_
                                     // particles
                                     game.scene.addEmitter(emitter);
-                                    
+
                                     var goalScaleTween = new game.Tween(
                                             this.goalSprite.scale);
                                     goalScaleTween.to({
@@ -189,18 +188,12 @@ game
                                         y : 0
                                     }, 1000);
                                     sharkScaleTween.start();
-                                    var goalAlphaTween = new game.Tween(
-                                            this.goalSprite);
-                                    goalAlphaTween.to({
+                                    var spriteAlphaTween = new game.Tween(
+                                            this.sprite);
+                                    spriteAlphaTween.to({
                                         alpha : 0,
                                     }, 1000);
-                                    goalAlphaTween.start();
-                                    var sharkAlphaTween = new game.Tween(
-                                            this.sharkSprite);
-                                    sharkAlphaTween.to({
-                                        alpha : 0,
-                                    }, 1000);
-                                    sharkAlphaTween.start();
+                                    spriteAlphaTween.start();
                                 },
 
                                 emitInterval : 0.1,
