@@ -35,7 +35,8 @@ game
                                                 || game.boat.y < padding
                                                 || game.boat.y > game.system.height
                                                         - padding) {
-                                            this.genPushBackWave(game.boat.x, game.boat.y);
+                                            this.genPushBackWave(game.boat.x,
+                                                    game.boat.y);
                                             this.timeToNextPushBackWave = this.pushBackInterval;
                                         }
                                     }
@@ -44,32 +45,43 @@ game
                                     if (this.timeToNextPushBackWave <= 0) {
                                         if (game.stone.x < padding
                                                 || game.stone.x > game.system.width
-                                                - padding
+                                                        - padding
                                                 || game.stone.y < padding
                                                 || game.stone.y > game.system.height
-                                                - padding) {
-                                            this.genPushBackWave(game.stone.x, game.stone.y);
+                                                        - padding) {
+                                            this.genPushBackWave(game.stone.x,
+                                                    game.stone.y);
                                             this.timeToNextPushBackWave = this.pushBackInterval / 3;
                                         }
                                     }
                                 },
 
                                 genRandomWave : function() {
-                                    var centerX = game.system.width * Math.random();
-                                    var centerY = game.system.height * Math.random();
-                                    var sizeX = game.system.width * Math.random();
-                                    var sizeY = game.system.height * Math.random();
-                                    var elementCount = Math.ceil(sizeX / 100 * sizeY / 100 * Math.random());
+                                    var centerX = game.system.width
+                                            * Math.random();
+                                    var centerY = game.system.height
+                                            * Math.random();
+                                    var sizeX = game.system.width
+                                            * Math.random();
+                                    var sizeY = game.system.height
+                                            * Math.random();
+                                    var elementCount = Math.ceil(sizeX / 100
+                                            * sizeY / 100 * Math.random());
                                     var a = 2 * Math.PI * Math.random();
-                                    
+
                                     for (var i = 0; i < elementCount; i++) {
-                                        var x = centerX - sizeX / 2 + Math.random() * sizeX;
-                                        var y = centerY - sizeY / 2 + Math.random() * sizeY;
-                                        var lifeTime = 4 * 1000 * this.waveInterval * Math.random();
-                                        var maxInfluence = 0.1 * Math.random();
+                                        var x = centerX - sizeX / 2
+                                                + Math.random() * sizeX;
+                                        var y = centerY - sizeY / 2
+                                                + Math.random() * sizeY;
+                                        var lifeTime = 4 * 1000
+                                                * this.waveInterval
+                                                * Math.random();
+                                        var maxInfluence = game.balancing.maxWavePower
+                                                * Math.random();
                                         var wave = new Wave(x, y, a, lifeTime,
                                                 maxInfluence);
-                                        game.scene.addObject(wave);   
+                                        game.scene.addObject(wave);
                                     }
                                 },
 

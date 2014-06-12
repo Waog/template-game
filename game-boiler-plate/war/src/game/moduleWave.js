@@ -89,7 +89,7 @@ game.module('game.moduleWave').require('engine.particle', 'engine.audio',
                     var alphaMax = 0.3;
                     
                     this.sprite.position.set(this.x, this.y);
-                    this.sprite.alpha = alphaMax * this.wavePower;
+                    this.sprite.alpha = 0; // alphaMax * this.wavePower / game.balancing.maxWavePower;
                     
                     // particles
                     this.timeToNextEmit -= game.system.delta;
@@ -106,7 +106,7 @@ game.module('game.moduleWave').require('engine.particle', 'engine.audio',
                         emitter.duration = 0.21;
                         emitter.startScale = 1;
                         emitter.endScale = 5;
-                        emitter.startAlpha = 1;
+                        emitter.startAlpha = 1; // this.wavePower / game.balancing.maxWavePower;
                         emitter.endAlpha = 0;
                         emitter.life = 1; // particle exists
                                             // for
