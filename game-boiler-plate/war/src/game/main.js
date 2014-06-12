@@ -35,14 +35,19 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
 
                     startBtn.interactive = true;
                     startBtn.buttonMode = true;
-                    startBtn.click = function() {
+                    var startAction = function() {
                         game.system.setScene(SceneGame);
                     }
+                    startBtn.click = startAction;
+                    startBtn.tap = startAction;
+                    
                     creditsBtn.interactive = true;
                     creditsBtn.buttonMode = true;
-                    creditsBtn.click = function() {
+                    var creditsAction = function() {
                         game.system.setScene(CreditsMenu);
                     }
+                    creditsBtn.click = creditsAction;
+                    creditsBtn.tap = creditsAction;
                 },
             });
 
@@ -62,6 +67,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     backBtn.click = function() {
                         game.system.setScene(MainMenu);
                     }
+                    backBtn.tap = backBtn.click;
                 },
             });
 
@@ -81,6 +87,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     backBtn.click = function() {
                         game.system.setScene(MainMenu);
                     }
+                    backBtn.tap = backBtn.click;
                 },
             });
 
@@ -100,6 +107,7 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
                     backBtn.click = function() {
                         game.system.setScene(MainMenu);
                     }
+                    backBtn.tap = backBtn.click;
                 },
             });
 
