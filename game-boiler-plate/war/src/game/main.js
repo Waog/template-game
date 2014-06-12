@@ -2,9 +2,9 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
         'game.moduleBoat', 'game.moduleStone', 'game.moduleWaveGenerator', 'game.moduleFishes',
         'game.moduleBlue', 'engine.audio', 'engine.keyboard').body(
         function() {
-            game.addAudio('audio/Ocean_2.m4a', 'music');
-            game.addAudio('audio/scream2.m4a', 'lose');
-            game.addAudio('audio/yes_hahaha.m4a', 'win');
+            game.addAudio('audio/Ocean_2.wav', 'music');
+            game.addAudio('audio/scream2.wav', 'lose');
+            game.addAudio('audio/yes_hahaha.wav', 'win');
 
             game.addAsset('title.png');
             game.addAsset('credits.png');
