@@ -26,6 +26,7 @@ game
                                 bodySprite : null,
                                 player1Sprite : null,
                                 player2Sprite : null,
+                                won : false,
 
                                 init : function(x, y, winCallback, loseCallback) {
                                     this.x = x;
@@ -116,6 +117,25 @@ game
                                     this.render();
 
                                     this.checkWin();
+
+                                    if (this.won) {
+                                        game.stone.scaleTween.stop();
+                                        var winScaleSpeed = 0.1;
+                                        var finalWinScale = 0.3;
+                                        var winPositionSpeed = 0.2;
+                                        game.stone.sprite.scale.x = (1 - winScaleSpeed)
+                                                * game.stone.sprite.scale.x
+                                                + winScaleSpeed * finalWinScale;
+                                        game.stone.sprite.scale.y = (1 - winScaleSpeed)
+                                                * game.stone.sprite.scale.y
+                                                + winScaleSpeed * finalWinScale;
+                                        game.stone.x = (1 - winPositionSpeed)
+                                                * game.stone.x
+                                                + winPositionSpeed * this.x;
+                                        game.stone.y = (1 - winPositionSpeed)
+                                                * game.stone.y
+                                                + winPositionSpeed * this.y;
+                                    }
                                 },
 
                                 checkWin : function() {
@@ -125,7 +145,7 @@ game
                                         return;
                                     }
                                     this.winCallback();
-
+                                    this.won = true;
                                 },
 
                                 emitInterval : 0.1,

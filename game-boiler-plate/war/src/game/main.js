@@ -126,14 +126,13 @@ game.module('game.main').require('engine.core', 'game.moduleBg',
 
                     new BG();
 
-                    game.stone = new Stone(game.system.width * 0.9,
-                            game.system.height * 0.9, this.onLose);
-                    this.addObject(game.stone);
                     game.boat = new Boat(game.system.width * 0.1,
                             game.system.height * 0.1, this.onWin, this.onLose);
-                    this.addObject(game.boat);
-
+                    game.stone = new Stone(game.system.width * 0.9,
+                            game.system.height * 0.9, this.onLose);
                     var waveGen = new WaveGenerator();
+                    this.addObject(game.stone);
+                    this.addObject(game.boat);
                     this.addObject(waveGen);
                 },
 

@@ -30,6 +30,7 @@ game
                                 vY : 0, // velocity
                                 a : 2, // angle
                                 vA : 0, // angular velocity
+                                scaleTween : null,
 
                                 init : function(x, y, loseCallback) {
 
@@ -42,6 +43,7 @@ game
 
                                     this.sprite = new game.Container();
                                     this.sprite.position.set(x, y);
+                                    this.sprite.scale.set(1,1);
                                     game.boatLayer.addChild(this.sprite);
 
                                     this.sharkSprite = new game.Animation(
@@ -82,15 +84,15 @@ game
                                     this.bodySprite.height = 100;
                                     game.scene.stage.addChild(this.bodySprite);
 
-                                    var scaleTween = new game.Tween(
+                                    this.scaleTween = new game.Tween(
                                             this.sprite.scale);
-                                    scaleTween.to({
+                                    this.scaleTween.to({
                                         x : 1.1,
                                         y : 1.1
                                     }, 2000);
-                                    scaleTween.repeat(Number.MAX_SAFE_INTEGER);
-                                    scaleTween.yoyo();
-                                    scaleTween.start();
+                                    this.scaleTween.repeat(Number.MAX_SAFE_INTEGER);
+                                    this.scaleTween.yoyo();
+                                    this.scaleTween.start();
                                 },
 
                                 update : function() {
