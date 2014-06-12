@@ -6,6 +6,7 @@ game
                 function() {
 
                     game.addAsset('boat.png');
+                    game.addAsset('boatSpriteSheet.json');
                     game.addAsset('player1.png');
                     game.addAsset('player2.png');
                     game.addAsset('box.png');
@@ -37,10 +38,14 @@ game
                                     this.sprite.scale.set(.4, .4);
                                     game.boatLayer.addChild(this.sprite);
 
-                                    var boatSprite = new game.Sprite('boat.png');
+                                    var boatSprite = new game.Animation(
+                                            'boat1.png', 'boat2.png',
+                                            'boat3.png');
                                     boatSprite.anchor.set(0.5, 0.5);
                                     // boatSprite.scale.set(.4, .4);
                                     this.sprite.addChild(boatSprite);
+                                    boatSprite.animationSpeed = 0.5;
+                                    boatSprite.play();
 
                                     this.player1Sprite = new game.Sprite(
                                             'player1.png');
