@@ -1,6 +1,6 @@
 game
         .module('game.moduleBoat')
-        .require('engine.particle', 'engine.audio', 'engine.keyboard',
+        .require('engine.particle', 'engine.audio', 'engine.keyboard', 'game.moduleInputs',
                 'game.moduleBalancing')
         .body(
                 function() {
@@ -100,7 +100,7 @@ game
                                     this.vX *= game.balancing.slowRate;
                                     this.vY *= game.balancing.slowRate;
 
-                                    this.handleKeysV2();
+                                    this.handleInputsV2();
 
                                     this.x += this.vX * game.system.delta; // update
                                     // position
@@ -119,15 +119,15 @@ game
                                     this.checkWin();
 
                                     if (this.won) {
-                                        game.stone.scaleTween.stop();
+//                                        game.stone.goalScaleTween.stop();
                                         var winScaleSpeed = 0.1;
                                         var finalWinScale = 0.3;
                                         var winPositionSpeed = 0.2;
-                                        game.stone.sprite.scale.x = (1 - winScaleSpeed)
-                                                * game.stone.sprite.scale.x
+                                        game.stone.goalSprite.scale.x = (1 - winScaleSpeed)
+                                                * game.stone.goalSprite.scale.x
                                                 + winScaleSpeed * finalWinScale;
-                                        game.stone.sprite.scale.y = (1 - winScaleSpeed)
-                                                * game.stone.sprite.scale.y
+                                        game.stone.goalSprite.scale.y = (1 - winScaleSpeed)
+                                                * game.stone.goalSprite.scale.y
                                                 + winScaleSpeed * finalWinScale;
                                         game.stone.x = (1 - winPositionSpeed)
                                                 * game.stone.x
@@ -189,7 +189,7 @@ game
                                 },
 
                                 // holding = accelerating
-                                handleKeysV1 : function() {
+                                handleInputsV1 : function() {
                                     var spaceHit = game.keyboard.down("A");
                                     if (spaceHit) {
                                         this.vA += game.balancing.paddlePowerAngle
@@ -213,14 +213,14 @@ game
                                                 * game.system.delta;
                                     }
                                 },
-
+                                
                                 leftDownLastUpdate : false,
                                 leftDownTime : 0,
                                 rightDownLastUpdate : false,
                                 rightDownTime : 0,
 
                                 // tapping = accelerating, holding = slowing
-                                handleKeysV2 : function() {
+                                handleInputsV2 : function() {
 
                                     var activeSlowMultiplier = 0.9;
 
@@ -228,7 +228,7 @@ game
                                     var leftReleased = false;
                                     var leftReleasedAfter = -1;
                                     var leftDown = false;
-                                    if (game.keyboard.down("A")) {
+                                    if (game.inputs.isLeftDown()) {
                                         leftDown = true;
                                         this.leftDownLastUpdate = true;
                                         this.leftDownTime += game.system.delta;
@@ -275,7 +275,7 @@ game
                                     var rightReleased = false;
                                     var rightReleasedAfter = -1;
                                     var rightDown = false;
-                                    if (game.keyboard.down("K")) {
+                                    if (game.inputs.isRightDown()) {
                                         rightDown = true;
                                         this.rightDownLastUpdate = true;
                                         this.rightDownTime += game.system.delta;
